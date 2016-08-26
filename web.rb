@@ -1,5 +1,5 @@
 require 'sinatra'
 
-get '/SureOVRWebAPI/api/ovr' do
+post '/SureOVRWebAPI/api/ovr' do
 "<RESPONSE><APPLICATIONID>-1</APPLICATIONID><APPLICATIONDATE></APPLICATIONDATE><ERROR></ERROR></RESPONSE>"
 end
