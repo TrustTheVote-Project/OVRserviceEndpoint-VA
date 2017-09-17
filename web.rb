@@ -1,6 +1,7 @@
 require 'sinatra'
 
 post '/SureOVRWebAPI/api/ovr' do
+  sleep 8
   
   request.body.rewind
   request_payload = JSON.parse request.body.read
