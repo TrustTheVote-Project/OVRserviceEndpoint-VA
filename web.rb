@@ -43,7 +43,7 @@ post '/VoterRegistrationSubmission' do
   Post.create!(request: json, endpoint: "VoterRegistrationSubmission")
   is_error = json["LastName"] == "Error"
   if !is_error
-    {}.to_json
+    {"ConfirmationID"=>"FakeSuccess"}.to_json
   else
     {}.to_json
   end
