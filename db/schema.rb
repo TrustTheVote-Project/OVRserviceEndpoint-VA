@@ -13,7 +13,9 @@
 ActiveRecord::Schema.define(version: 20170912124122) do
 
   create_table "posts", force: :cascade do |t|
-    t.text "xml_request"
+    t.text "request"
+    t.string "endpoint"
+    t.text "response"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
