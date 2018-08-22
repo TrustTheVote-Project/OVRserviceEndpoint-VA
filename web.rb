@@ -4,7 +4,7 @@ post '/VoterConfirmationRequest' do
   request.body.rewind
   json = JSON.parse request.body.read
   
-  Post.create!(request: json, endpoint: "VoterConfirmationRequest")
+  Post.create!(request: json, endpoint: "VoterConfirmationRequest", query_string: params, headers: request.headers)
   is_error = json["LastName"] == "Error"
   if !is_error
     {
@@ -40,7 +40,7 @@ post '/VoterRegistrationSubmission' do
   request.body.rewind
   json = JSON.parse request.body.read
   
-  Post.create!(request: json, endpoint: "VoterRegistrationSubmission")
+  Post.create!(request: json, endpoint: "VoterRegistrationSubmission", query_string: params, headers: request.headers)
   is_error = json["LastName"] == "Error"
   if !is_error
     {"ConfirmationID"=>"FakeSuccess"}.to_json
