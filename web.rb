@@ -8,7 +8,7 @@ post '/VoterConfirmationRequest' do
   is_error = json["LastName"] == "Error"
   if !is_error
     {
-      "VoterId" => "123456789",
+      "VoterID" => "123456789",
       "IsRegisteredVoter" => json["FirstName"] == "Voter",
       "TransactionTimestamp" => Time.now.iso8601,
       "HasDMVSignature" => !json["DriversLicenseNo"].blank?
