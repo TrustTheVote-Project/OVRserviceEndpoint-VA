@@ -1,6 +1,6 @@
 require 'sinatra'
 
-post '/VoterConfirmationRequest' do
+post '/Voter/Confirmation' do
   request.body.rewind
   json = JSON.parse request.body.read
   
@@ -36,16 +36,16 @@ end
 # TransactionTimestamp (datetime) Date formatted to use the ISO 8601 format with the UTC offset.
 # HasDMVSignature (bool)  Confirmation that user has DMV signature. Must send Driver’s license number to return this value. Not needed for voter confirmations only.
 
-post '/VoterRegistrationSubmission' do
+post '/Voter/Submit' do
   request.body.rewind
   json = JSON.parse request.body.read
   
   Post.create!(request: json, endpoint: "VoterRegistrationSubmission", query_string: params, headers: request.env)
   is_error = json["LastName"] == "Error"
   if !is_error
-    {"ConfirmationID"=>"FakeSuccess"}.to_json
+  '{"TransactonId":0,"TransactionTimestamp":"2018-08-23T12:46:27.3851675-04:00","TransactionErrorMessage":"String","VoterRegistrationsAccepted":0,"VoterRegistrationsWithErrors":0,"Errors":[{"ErrorId":0,"ErrorTimestamp":"2018-08-23T12:46:27.3851675-04:00","VoterSubmissionId":"String","ErrorMessage":"String","FieldErrors":[{"FieldName":"String","Issue":"String"}]}],"Confirmations":[{"ConfirmationId":999,"ConfirmationTimestamp":"2018-08-23T12:46:27.3851675-04:00","VoterSubmissionId":"String","ErrorMessage":"String"}]}'
   else
-    {}.to_json
+    '{"TransactonId":0,"TransactionTimestamp":"2018-08-23T12:46:27.3851675-04:00","TransactionErrorMessage":"String","VoterRegistrationsAccepted":0,"VoterRegistrationsWithErrors":0,"Errors":[{"ErrorId":0,"ErrorTimestamp":"2018-08-23T12:46:27.3851675-04:00","VoterSubmissionId":"String","ErrorMessage":"String","FieldErrors":[{"FieldName":"String","Issue":"String"}]}],"Confirmations":[]}'
   end
 end
 
