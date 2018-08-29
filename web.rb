@@ -14,14 +14,14 @@ post '/Voter/Confirmation' do
         "VoterID" => json["FirstName"].to_s.downcase == "voter" ? "123456789" : nil,
         "IsRegisteredVoter" => json["FirstName"].to_s.downcase == "voter",
         "TransactionTimestamp" => Time.now.iso8601,
-        "HasDMVSignature" => json["DriversLicenseNumber"].to_s.downcase.starts_with?("t")
+        "HasDmvSignature" => json["DriversLicenseNumber"].to_s.downcase.starts_with?("t")
       }.to_json
     else
       {
         "VoterID" => json["FirstName"].to_s.downcase == "voter" ? "123456789" : nil,
         "IsRegisteredVoter" => json["FirstName"].to_s.downcase == "voter",
         "TransactionTimestamp" => Time.now.iso8601,
-        "HasDMVSignature" => json["DriversLicenseNumber"].to_s.downcase.starts_with?("t")
+        "HasDmvSignature" => json["DriversLicenseNumber"].to_s.downcase.starts_with?("t")
       }.to_json
     end
   else
