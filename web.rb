@@ -5,14 +5,25 @@ post '/Voter/Confirmation' do
   json = JSON.parse request.body.read
   
   Post.create!(request: json, endpoint: "VoterConfirmationRequest", query_string: params, headers: request.env)
-  is_error = json["LastName"] == "Error"
+  is_error = json["LastName"].to_s.downcase == "error"
+  is_protected = json["LastName"].to_s.downcase == "protected"
   if !is_error
-    {
-      "VoterID" => "123456789",
-      "IsRegisteredVoter" => json["FirstName"] == "Voter",
-      "TransactionTimestamp" => Time.now.iso8601,
-      "HasDMVSignature" => !json["DriversLicenseNo"].blank?
-    }.to_json
+    if is_protected
+      {
+        "IsProtected" => true,
+        "VoterID" => json["FirstName"].to_s.downcase == "voter" ? "123456789" : nil,
+        "IsRegisteredVoter" => json["FirstName"].to_s.downcase == "voter",
+        "TransactionTimestamp" => Time.now.iso8601,
+        "HasDMVSignature" => json["DriversLicenseNo"].to_s.downcase.starts_with?("t")
+      }.to_json
+    else
+      {
+        "VoterID" => json["FirstName"].to_s.downcase == "voter" ? "123456789" : nil,
+        "IsRegisteredVoter" => json["FirstName"].to_s.downcase == "voter",
+        "TransactionTimestamp" => Time.now.iso8601,
+        "HasDMVSignature" => json["DriversLicenseNo"].to_s.downcase.starts_with?("t")
+      }.to_json
+    end
   else
    {}.to_json 
   end
