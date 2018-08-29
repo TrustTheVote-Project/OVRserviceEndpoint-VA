@@ -52,7 +52,7 @@ post '/Voter/Submit' do
   json = JSON.parse request.body.read
   
   Post.create!(request: json, endpoint: "VoterRegistrationSubmission", query_string: params, headers: request.env)
-  is_error = json["VoterRegistrations"][0]["LastName"] == "Error"
+  is_error = json["VoterRegistrations"][0]["FirstName"] == "Error"
   if !is_error
   '{"TransactonId":0,"TransactionTimestamp":"2018-08-23T12:46:27.3851675-04:00","TransactionErrorMessage":"String","VoterRegistrationsAccepted":0,"VoterRegistrationsWithErrors":0,"Errors":[{"ErrorId":0,"ErrorTimestamp":"2018-08-23T12:46:27.3851675-04:00","VoterSubmissionId":"String","ErrorMessage":"String","FieldErrors":[{"FieldName":"String","Issue":"String"}]}],"Confirmations":[{"ConfirmationId":999,"ConfirmationTimestamp":"2018-08-23T12:46:27.3851675-04:00","VoterSubmissionId":"String","ErrorMessage":"String"}]}'
   else
